@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Review Distiller - Ayelet Berger's Insight Project</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../static/css/stylish-portfolio.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top" onclick=$("#menu-close").click();>Review Distiller</a>
+            </li>
+            <li>
+                <a href="#top_reviews" onclick=$("#menu-close").click();>Top Reviews</a>
+            </li>
+            <li>
+                <a href="#repeated_reviews" onclick=$("#menu-close").click();>Review Overview</a>
+            </li>
+            <li>
+                <a href="#about_the_project" onclick=$("#menu-close").click();>About the Project</a>
+            </li>
+            <li>
+                <a href="#about_me" onclick=$("#menu-close").click();>About Me</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <header id="top" class="header">
+        <div class="text-vertical-center">
+            <h1>Review Distiller</h1>
+            <h2>Extract useful information from doctor reviews</h2>
+            <br>
+
+            <form action="/output" method="GET">
+                <div class="form-group">
+                    <label for="doctor_url">Doctor URL:</label>
+                    <input type ="text" id='doctor_url' name='doctor_url' placeholder="Enter a doctor's ZocDoc URL" style="width: 300px;">
+                </div>
+            <p> Or try this example: https://www.zocdoc.com/doctor/richard-neufeld-md-82257</p>
+
+                <div>
+                    <button href="/output/#top_reviews" type="submit" class="btn btn-dark btn-lg">Distill Reviews!</button>
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <!-- Top Reviews -->
+    <section id="top_reviews" class="about">
+        <div class="container">
+            <div class="row">
+                <h2 class="text-center">Here are your results!</h2> 
+                <p class="text-center">These are the most representative reviews from each topic:</p>
+
+
+                <div class="col-lg-12">
+                    
+                    <h3>Overall Experience: </h3>
+                    <p class="lead">{{topic0}}</p>
+                    <p>{{percent_0}}% of this doctor's reviews talk about this topic. </p>
+                    <br>
+
+                    <h3>Office Administration and Wait Time:</h3>
+                    <p class="lead">{{topic1}}</p>
+                    <p>{{percent_1}}% of this doctor's reviews talk about this topic.</p>
+                    <br>
+
+                    <h3>Bedside Manner:</h3>
+                    <p class="lead">{{topic2}}</p>
+                    <p>{{percent_2}}% of this doctor's reviews talk about this topic.</p>
+                
+                    <a href="#repeated_reviews" class="btn btn-dark">Learn More</a>
+
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Repeated Reviews -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="repeated_reviews" class="services bg-primary">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <br><br>
+                    <h2>Review Overview</h2>
+                    <hr class="small">
+                    <br><br>
+                    <div class="row text-center"> 
+                        <p class="lead">
+                            See how this doctor compares to others on ZocDoc!</p>
+                        <br><br><br>
+                        <div class="col-md-4 col-sm-6">
+                            <p class="lead">This doctor has {{num_reviews}} reviews. <br><br><br>
+                                <hr class="small">
+                                Most doctors on ZocDoc have between 23 and 217 reviews*. </p>
+                        </div>
+                        
+                        <div class="col-md-4 col-sm-6">
+                            <p class="lead">There are {{num_patients}} patients who have reviewed this doctor with their names listed. <br>
+                                <hr class="small">
+                                Most doctors on ZocDoc have reviews from between 15 and 113 patients*. </p>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6">
+                            <p class="lead">There are {{num_repeat_patients}} patients who have reviewed this doctor more than once.
+                                <hr class="small">
+                                Most doctors on ZocDoc have repeat reviews from between 0 and 11 patients*. </p>
+                        </div>
+
+                    </div>
+                    <!-- /.row (nested) -->
+                    <br><br>
+
+                    <h6> *These numbers are based on the interquartile range from a dataset of 231 primary care physicians in Manhattan. </h6>
+
+                    <a href="#about_the_project" class="btn btn-light">Learn More About This Project</a>
+
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- About the Project -->
+    <section id="about_the_project" class="portfolio">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h1 class="text-center">About the Project</h1>
+                    <br>
+
+                    <h3>What is Review Distiller?</h3>
+                    <p class="lead">Review Distiller is a web app that extracts useful information from doctor reviews to help users choose a new doctor without reading through hundreds of reviews. </p>
+
+                    <h3>How do I use Review Distiller?</h3>
+                    <p class="lead">
+                        Copy and paste the url from any doctor’s page on ZocDoc into the search bar on ayeletberger.com/reviewdistiller and click the “Distill Reviews!” button. The app will retrieve and process all of that doctor’s reviews so you don’t have to! The app generates a doctor overview with the following information:
+                        <UL class="lead">
+                            <LI>Best matching review for each of three topics (overall experience, office administration/wait time, and bedside manner)</LI>
+                            <LI>Breakdown of reviews by topic (what percent of the reviews talk about each of the three topics)</LI>
+                            <LI>Number of reviews for that doctor</LI>
+                            <LI>Number of individual patients who have written reviews (this excludes anonymous reviews)</LI>
+                            <LI>Number of patients who have written more than one review (this indicates that they have returned to the same doctor for more than one appointment)</LI>
+                        </UL>
+                    </p>
+
+                    <h3>Why did I build Review Distiller?</h3>
+                    <p class="lead">
+                        User reviews play a huge role in how consumers make decisions. Whether you are trying to choose a restaurant, a commercial product, or a new exercise class, you can find many of options online, each of them with hundreds of user reviews. This is a great source of information, but it can often be time-consuming and overwhelming. Choosing a doctor is an example of this type of information overload. </p>
+                    <p class="lead">
+                        The website ZocDoc allows users to search for doctors based on location and read reviews that patients have written. A quick search for primary care physicians in Manhattan turns up hundreds of doctors, many of whom have over 100 patient reviews. 95% of these doctors have an average rating of over 4.2 stars (out of 5). It is difficult to distinguish between doctors without reading through thousands of patient reviews. Review Distiller is a web app filters through patient reviews and gives users the information they need in a concise format.
+
+                    </p>
+
+                    <h3>Design Considerations</h3>
+                    <p class="lead">
+                        One of the first challenges of this project was defining the scope. I wanted to distill the useful information from a doctor's reviews, but was unsure how to best define “useful.” I thought about a few different factors that affect the way I make decisions about which doctor to choose.
+                        <UL class="lead">
+                            <LI>What topics come up most often in the reviews?</LI>
+                            <LI>How many reviews does this doctor have?</LI>
+                            <LI>How does this doctor compare to others in the same area?</LI>
+                            <LI>How long has this doctor been practicing and do patients often return for multiple appointments?</LI>
+                        </UL>
+                    </p>
+                    <p class="lead">
+                        At first, I considered giving doctors a numerical score based on how many positive or negative reviews they received. Upon further consideration, I realized that a score would not be helpful. ZocDoc already displays the average star rating, and 95% of doctors have 4.2 stars (out of 5) or higher. Choosing a doctor is a nuanced decision that cannot be reduced to a single numerical score. People read reviews when making a decision because they want more detailed information and a narrative. Instead of reducing the reviews to a numerical representation, I decided to identify the topics that commonly appear and then show the best matching review for each of these topics. I also include numerical information about what percentage of reviews are about each topic, how many reviews there are, and how many different patients left reviews. This information is useful in making comparisons to other doctors in the area.
+
+                    </p>
+
+                    <h3>How Review Distiller Works</h3>
+                    <u class="lead">Topic Modeling:</u>
+                    <p class="lead">
+                        In order to identify common topics in the reviews, I used an unsupervised clustering algorithm called latent Dirichlet allocation (LDA). This model assumes each topic is made up of a distribution of words and each document is some combination of these topics. The model discovers topics within the documents by learning groups of words that frequently appear together,. A more in-depth explanation can be found <a href="http://blog.echen.me/2011/08/22/introduction-to-latent-dirichlet-allocation/" data-href="http://blog.echen.me/2011/08/22/introduction-to-latent-dirichlet-allocation/" rel="noopener" target="_blank">here</a>.
+                    </p>
+                    <p class="lead">
+                        Interpreting the topics is a primary challenge when implementing LDA. The algorithm returns topics as a list of words and their probabilities of appearing in those topics. It is up to the user to decipher what each topic is about. My LDA model identified the following clusters of words:
+                    </p>
+
+                    <p class="text-center">
+                        <img src="../static/img/word_clouds.png" width="100%" height="100%">
+                    </p>
+
+                    <p class="lead">
+                        From these clusters, I identified 3 topics:
+                        <UL class="lead">
+                            <LI>Overall Experience</LI>
+                            <LI>Office Administration and Wait Time</LI>
+                            <LI>Bedside Manner</LI>
+                        </UL>
+                    </p>
+                    <p class="lead">
+                        Below, you can see an interactive visualization of these topics. Move your mouse over each topic to see the word frequency distribution on the right.
+                    </p>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.css">
+
+
+<div id="ldavis_el174234566665880109246429" ></div>
+<script type="text/javascript">
+
+var ldavis_el174234566665880109246429_data = {"mdsDat": {"Freq": [36.7957629882914, 36.0001226186841, 27.204114393024504], "cluster": [1, 1, 1], "topics": [1, 2, 3], "x": [-0.1833312607412886, 0.1944696494487557, -0.01113838870746699], "y": [-0.07206883980487974, -0.06035630037342517, 0.1324251401783049]}, "tinfo": {"Category": ["Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Default", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic1", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic2", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3", "Topic3"], "Freq": [9496.0, 7374.0, 7096.0, 9537.0, 5423.0, 13504.0, 4853.0, 3859.0, 3417.0, 8309.0, 4523.0, 7204.0, 3570.0, 3000.0, 6519.0, 6148.0, 5968.0, 3532.0, 7289.0, 2061.0, 3441.0, 3221.0, 2501.0, 4965.0, 1846.0, 1609.0, 6409.0, 1517.0, 2048.0, 2312.0, 5393.636256136775, 778.0344894312568, 79.77175906646471, 3817.1676938542796, 254.3849891338792, 74.79032356357486, 72.47983476727136, 121.9204731143283, 445.9744120068374, 62.046948508092186, 242.38534007481456, 59.43729863289509, 48.648361997114726, 67.34729414815804, 66.41950202677405, 46.27306277007571, 149.63267125680267, 39.30929253545345, 41.88768798930984, 37.287424634954824, 37.99976284069388, 96.59062381743543, 72.13845590867766, 46.48066577523417, 34.24233340712361, 39.942729468212654, 42.8254452610802, 35.02498557379011, 52.482661282840404, 81.19357846867392, 2918.916265735206, 4675.509842906262, 931.5298574020452, 409.85487257758206, 436.30582835495073, 8824.965352782978, 2345.760902419612, 8462.425448628423, 2108.870898944726, 3174.580677040811, 2889.779035262119, 3057.700565500899, 2194.958219746264, 6020.069587741464, 1060.9358706459639, 6826.521123331096, 624.3799792570426, 1785.1355570667506, 10583.586901901795, 964.2252117589688, 2212.3418786951715, 5189.650638810628, 2420.464575010919, 1645.053070460438, 2764.0308835913042, 1770.5942159684816, 2980.5166142814014, 2067.7598459475153, 2693.53935998616, 1937.5450005438686, 4164.537384065414, 3822.8585331591266, 3190.485368667862, 3692.775220863906, 2441.9588611474155, 2920.1532322579374, 2892.527580997306, 2990.52963752972, 3210.398089558047, 3866.896063928299, 2672.191810673488, 2461.163782902268, 650.7931311648637, 560.6822855415286, 477.5620799260622, 3408.5493225585947, 400.7698110099205, 540.5597377806379, 280.9452929934076, 268.62299129741876, 524.6061035621218, 1603.679378351656, 198.8032399284616, 238.92249300425541, 196.43602365019208, 184.8729835654236, 204.47249140760553, 763.9729948365075, 163.78143739258715, 668.5685654891417, 164.44087158559594, 203.3834292478492, 204.55759602698785, 241.69070753842433, 596.8491623991805, 197.5803521002148, 773.4001557877231, 2050.092878335019, 127.01896109722547, 167.845875657687, 194.20217760866905, 993.1168518925315, 1507.9183633007797, 1416.852607183521, 865.5547194433998, 986.0105385963125, 828.5742853264359, 611.8481914164196, 462.3200960537288, 536.7669623829994, 1806.6998388056877, 597.7442507805201, 594.625508783254, 6683.933536610901, 678.4480618287673, 817.5563283214743, 673.0882076451984, 558.81887274111, 1224.8005125897344, 1901.8683802924904, 1661.084698192221, 4921.761340404365, 1349.305919193886, 1507.196618212032, 828.9556807262572, 1990.2745601668944, 790.7853313493995, 1768.2347334417525, 5557.947400671333, 1605.0610890547393, 1051.9714417747768, 1148.5674348870944, 992.7280212317837, 5679.658150230336, 1595.132382001137, 990.168381671489, 1575.6599997996998, 948.4179970197231, 2044.7772715436108, 2205.172786230667, 1778.4144972684962, 1660.3091355379477, 1353.5961752384023, 1211.4545423859254, 1316.4083979128843, 1227.349845936474, 182.08649758738304, 154.62523456811647, 103.75093383689838, 131.70950906828537, 93.82886004774953, 92.56269332373354, 86.49244723353374, 88.31699397803139, 122.65722161277652, 76.93984643983818, 73.27392128837624, 78.9947681444635, 533.109975072676, 78.09746410471031, 86.54007260893309, 124.44868124746462, 64.10062530042518, 67.58771801428678, 68.60573186362285, 189.0225652016892, 55.17930405203231, 53.9236265561835, 65.97782701802392, 63.45893473395945, 62.400862373417304, 45.88418272829621, 53.92440793980655, 101.0817366092792, 50.20112000366734, 89.98375522950941, 692.2601543689409, 244.72655540328805, 83.47477164858522, 71.1475842229902, 164.4639993359042, 84.0158983261475, 114.1847462420749, 331.3187079933134, 338.5587336577264, 124.781702397211, 214.52586485797377, 372.92171119935745, 1154.7567499248767, 5891.287410336057, 157.57874186292233, 117.25597020275963, 3459.7430058320397, 1138.6899113435425, 636.3652585694385, 2729.323148513829, 749.9708462539953, 656.7358428642208, 862.089095210965, 336.27549113472776, 231.11522405062027, 978.6786056132751, 751.0358377916614, 404.1222905238834, 1397.759796807192, 1944.9341375491742, 3844.844126944225, 691.5695612621495, 2158.401396492655, 1525.4546339898277, 536.9432800247453, 1337.839121569482, 2435.8628772628203, 845.6142687069203, 1208.6461366644141, 1198.6637418649827, 604.5082076613588, 697.6542726422745, 4014.8958029916944, 1590.0343053101763, 2257.7387801760406, 1826.6997681573484, 2027.5791079607611, 1398.0570864481533, 2170.49427440026, 1748.9184173148074, 1350.9037166085936, 2342.859716258242, 975.6618349704962, 1039.1605843597683, 1170.1292956095783, 889.7854794053692, 1039.9649858082687, 1028.3311053992402], "Term": ["recommend", "question", "wait", "profession", "highli", "great", "knowledg", "excel", "minut", "care", "answer", "friendli", "ask", "best", "thorough", "appoint", "listen", "manner", "patient", "blood", "comfort", "kind", "bedsid", "concern", "result", "hour", "feel", "room", "test", "physician", "highli", "friend", "ive", "excel", "earth", "diagnostician", "she", "concis", "compassion", "profess", "humor", "judgement", "recomend", "he", "upbeat", "trustworthi", "outstand", "banger", "perman", "unrush", "alarmist", "colleagu", "tip", "strong", "amic", "keeper", "enthusiast", "clinician", "kindli", "altern", "best", "knowledg", "eas", "pleasur", "compet", "recommend", "bedsid", "profession", "physician", "manner", "kind", "comfort", "easi", "friendli", "warm", "care", "smart", "love", "great", "super", "primari", "thorough", "definit", "wonder", "effici", "pleasant", "person", "talk", "attent", "extrem", "feel", "listen", "realli", "staff", "experi", "nice", "good", "help", "visit", "time", "patient", "offic", "15", "min", "later", "minut", "45", "20", "ok", "half", "1", "hour", "needl", "morn", "messag", "disorgan", "lunch", "30", "ekg", "paperwork", "breath", "bloodwork", "bill", "draw", "phone", "card", "2", "blood", "hold", "frustrat", "confirm", "schedul", "room", "call", "5", "told", "arriv", "lab", "fill", "late", "result", "short", "week", "wait", "run", "said", "earli", "form", "came", "test", "check", "appoint", "got", "day", "walk", "went", "10", "physic", "offic", "nurs", "desk", "exam", "annual", "time", "work", "littl", "seen", "insur", "staff", "visit", "like", "nice", "need", "right", "took", "good", "grate", "atmospher", "happier", "gyn", "crazi", "fabul", "common", "aspect", "educ", "compass", "manhattan", "connect", "straight", "invit", "surgeri", "relev", "creat", "tremend", "p", "figur", "exceed", "allevi", "reserv", "root", "2nd", "mile", "tough", "spot", "slightli", "measur", "plan", "york", "activ", "reaction", "stay", "dilig", "solv", "experienc", "rememb", "unlik", "research", "situat", "lot", "question", "assess", "certain", "answer", "problem", "polit", "ask", "fast", "forward", "treatment", "citi", "understood", "sure", "histori", "condit", "know", "medic", "patient", "symptom", "need", "issu", "specialist", "new", "concern", "gave", "health", "doctor", "better", "think", "time", "make", "help", "like", "listen", "rush", "visit", "feel", "took", "great", "look", "go", "realli", "understand", "offic", "care"], "Total": [9496.0, 7374.0, 7096.0, 9537.0, 5423.0, 13504.0, 4853.0, 3859.0, 3417.0, 8309.0, 4523.0, 7204.0, 3570.0, 3000.0, 6519.0, 6148.0, 5968.0, 3532.0, 7289.0, 2061.0, 3441.0, 3221.0, 2501.0, 4965.0, 1846.0, 1609.0, 6409.0, 1517.0, 2048.0, 2312.0, 5423.565584398507, 786.3830405993324, 80.65374487603734, 3859.745874328621, 257.3058802014226, 75.72364526820296, 73.44657431664146, 123.55799593641395, 452.13783374161056, 62.93325265397098, 246.28641854284598, 60.40755906404592, 49.442906378193605, 68.46987196823743, 67.53852400593118, 47.059962621168836, 152.326259429182, 40.029100614903925, 42.696844066934474, 38.01216361682796, 38.757602955162575, 98.57402965012095, 73.66470803439945, 47.46838479129363, 34.97704192454732, 40.809340748338386, 43.76082583529746, 35.80824310118674, 53.69306877612847, 83.09594755004679, 3000.49955277074, 4853.290912605234, 960.535422036917, 421.1809697948388, 452.4545527796774, 9496.986777348166, 2501.507032492864, 9537.953294141036, 2312.201307140662, 3532.935992111177, 3221.8668065245092, 3441.969830733753, 2492.0926361917927, 7204.664694430195, 1190.5167063616207, 8309.911628787948, 694.0832906903535, 2073.359736590928, 13504.54523317298, 1097.3908549003359, 2656.0105665281517, 6519.551104855982, 2991.6520072365174, 1998.4086827718747, 3584.411649042956, 2209.1447465396004, 3974.0518775733913, 2642.6114906687667, 3668.391778752269, 2511.575573549087, 6409.136861799074, 5968.719771663917, 5003.5197653924315, 6240.206413796509, 3762.1168226263403, 5126.90121700583, 5077.191163974769, 5945.417923733832, 7586.065150188974, 13561.45001715033, 7289.556577585196, 9059.07616938187, 651.6123568354604, 561.4683356392387, 478.32863766992944, 3417.719520566283, 401.88852346987596, 542.1899336606739, 281.8717847149389, 269.5139628927421, 526.3703152722514, 1609.091159624442, 199.56918059039126, 239.91974680777187, 197.27066701952228, 185.69294730015292, 205.38511539828468, 767.4081613868744, 164.51898293245384, 671.6204396753429, 165.2127497057846, 204.33964537621404, 205.528147417357, 242.85519759321303, 599.8226060956586, 198.5818555562117, 777.34242381612, 2061.3156564067713, 127.71525038655722, 168.77753106012506, 195.30593229540747, 998.7705349120374, 1517.402640691114, 1429.8537238620506, 872.6429397176639, 995.8732504280142, 835.4956043540757, 617.2203956253876, 465.10045134555656, 540.8772705059565, 1846.16458293491, 604.1583466984978, 601.5695005125489, 7096.655047004128, 689.7026834124183, 834.7365883159792, 686.8621596018124, 568.6407647655096, 1285.6993090721983, 2048.7787007232887, 1778.7679883385347, 6148.825099980569, 1496.1946081736044, 1694.7093258274035, 877.8010130350976, 2404.2896484594526, 833.668443704912, 2166.460061269798, 9059.07616938187, 2110.0290812940434, 1231.06667866907, 1391.7447534157986, 1151.2667812394657, 13561.45001715033, 2308.181511432577, 1191.3090958381204, 2719.947103611797, 1112.110273650418, 6240.206413796509, 7586.065150188974, 4950.482342066414, 5126.90121700583, 3857.1314939236663, 2580.3194014809787, 3824.5792970764505, 5077.191163974769, 183.0696857099501, 155.5127576664693, 104.51048945175064, 132.71459765893874, 94.62260715075405, 93.34768299505399, 87.22940931453955, 89.09912683758051, 123.775363614959, 77.65677110809169, 73.97377633210829, 79.77220023230112, 538.5770182271086, 78.9473136197386, 87.50011435448917, 125.83828669850823, 64.82136750292076, 68.38881443243777, 69.47789133856809, 191.5580857439929, 55.950719179797936, 54.71245732006243, 66.9467095736003, 64.39552837871769, 63.34360030416703, 46.585435674725886, 54.757129093035246, 102.67609331498775, 51.015385531043485, 91.45492068419125, 710.1276641302292, 250.05109118295272, 84.85038530799893, 72.36258335564018, 168.8164701309209, 85.64262851313042, 117.15304936004398, 347.45476103800723, 359.2547167024653, 128.48252448976032, 224.71315073275275, 400.92291017077673, 1302.0245387752764, 7374.748511742526, 164.97191810737507, 120.9663559484871, 4523.714077939495, 1374.8057347420413, 739.5169179873427, 3570.1398301546537, 891.7847452010901, 783.6646975731953, 1079.835626951314, 385.5668033595646, 262.47441555375246, 1391.436376639075, 1032.0643323443783, 503.26763327616993, 2162.6175878116555, 3234.039210457784, 7289.556577585196, 971.6062405750816, 3857.1314939236663, 2546.6813111449987, 725.7355312189518, 2279.915178984158, 4965.270094432024, 1354.4912096429814, 2187.3990882883236, 2321.4339820345594, 888.2129548240298, 1090.6594067462925, 13561.45001715033, 3576.373698468321, 5945.417923733832, 4950.482342066414, 5968.719771663917, 3393.884583589141, 7586.065150188974, 6409.136861799074, 3824.5792970764505, 13504.54523317298, 2103.048540308352, 2636.6531019915137, 5003.5197653924315, 1784.2017256711038, 9059.07616938187, 8309.911628787948], "loglift": [30.0, 29.0, 28.0, 27.0, 26.0, 25.0, 24.0, 23.0, 22.0, 21.0, 20.0, 19.0, 18.0, 17.0, 16.0, 15.0, 14.0, 13.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.9943, 0.9891, 0.9888, 0.9887, 0.9884, 0.9874, 0.9865, 0.9864, 0.9861, 0.9856, 0.9838, 0.9836, 0.9836, 0.9833, 0.9831, 0.9829, 0.9819, 0.9816, 0.9807, 0.9805, 0.98, 0.9795, 0.9789, 0.9788, 0.9786, 0.9783, 0.9782, 0.9777, 0.977, 0.9766, 0.9722, 0.9625, 0.9691, 0.9725, 0.9634, 0.9264, 0.9355, 0.8801, 0.9077, 0.8928, 0.891, 0.8814, 0.8728, 0.8202, 0.8846, 0.8032, 0.894, 0.8501, 0.7561, 0.8704, 0.817, 0.7716, 0.7879, 0.8052, 0.7399, 0.7785, 0.7121, 0.7545, 0.6909, 0.7403, 0.5687, 0.5543, 0.5498, 0.4752, 0.5676, 0.4369, 0.4372, 0.3126, 0.1399, -0.255, -0.0038, -0.3033, 1.0204, 1.0202, 1.02, 1.019, 1.0189, 1.0186, 1.0184, 1.0183, 1.0183, 1.0183, 1.0178, 1.0175, 1.0174, 1.0172, 1.0172, 1.0172, 1.0172, 1.0171, 1.017, 1.017, 1.0169, 1.0168, 1.0167, 1.0166, 1.0166, 1.0162, 1.0162, 1.0161, 1.016, 1.016, 1.0154, 1.0125, 1.0135, 1.0117, 1.0133, 1.0129, 1.0157, 1.014, 1.0, 1.011, 1.01, 0.9617, 1.0052, 1.0009, 1.0014, 1.0042, 0.9731, 0.9472, 0.9532, 0.7991, 0.9183, 0.9044, 0.9644, 0.8327, 0.9688, 0.8185, 0.5331, 0.7481, 0.8644, 0.8296, 0.8735, 0.1513, 0.6521, 0.8367, 0.4757, 0.8624, -0.0941, -0.2139, -0.0021, -0.1058, -0.0255, 0.2656, -0.0449, -0.3983, 1.2964, 1.2961, 1.2945, 1.2942, 1.2934, 1.2934, 1.2933, 1.293, 1.2927, 1.2925, 1.2923, 1.292, 1.2916, 1.291, 1.2908, 1.2907, 1.2906, 1.29, 1.2892, 1.2885, 1.2879, 1.2873, 1.2872, 1.2872, 1.2868, 1.2866, 1.2865, 1.2862, 1.2857, 1.2856, 1.2763, 1.2803, 1.2855, 1.2849, 1.2757, 1.2826, 1.2761, 1.2542, 1.2425, 1.2726, 1.2554, 1.2294, 1.1818, 1.0772, 1.256, 1.2706, 1.0337, 1.1134, 1.1516, 1.0333, 1.1286, 1.1251, 1.0766, 1.165, 1.1746, 0.9499, 0.9839, 1.0824, 0.8654, 0.7933, 0.6621, 0.9618, 0.7212, 0.7893, 1.0005, 0.7687, 0.5896, 0.8307, 0.7086, 0.6408, 0.917, 0.855, 0.0846, 0.4912, 0.3335, 0.3048, 0.2221, 0.4149, 0.0504, 0.0031, 0.2611, -0.4499, 0.5338, 0.3707, -0.1512, 0.6061, -0.8628, -0.7877], "logprob": [30.0, 29.0, 28.0, 27.0, 26.0, 25.0, 24.0, 23.0, 22.0, 21.0, 20.0, 19.0, 18.0, 17.0, 16.0, 15.0, 14.0, 13.0, 12.0, 11.0, 10.0, 9.0, 8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0, -3.7801, -5.7163, -7.9939, -4.1258, -6.8343, -8.0584, -8.0898, -7.5697, -6.2729, -8.2452, -6.8826, -8.2882, -8.4885, -8.1633, -8.1771, -8.5386, -7.3649, -8.7017, -8.6381, -8.7545, -8.7355, -7.8026, -8.0945, -8.5341, -8.8397, -8.6857, -8.616, -8.8171, -8.4126, -7.9763, -4.3941, -3.923, -5.5363, -6.3573, -6.2948, -3.2878, -4.6127, -3.3297, -4.7192, -4.3102, -4.4042, -4.3477, -4.6792, -3.6703, -5.4062, -3.5445, -5.9364, -4.8859, -3.1061, -5.5018, -4.6713, -3.8187, -4.5814, -4.9676, -4.4487, -4.894, -4.3733, -4.7389, -4.4745, -4.8039, -4.0388, -4.1244, -4.3052, -4.159, -4.5726, -4.3937, -4.4032, -4.3699, -4.299, -4.1129, -4.4825, -4.5647, -5.8731, -6.0221, -6.1826, -4.2172, -6.3579, -6.0586, -6.7131, -6.7579, -6.0886, -4.9712, -7.0589, -6.8751, -7.0709, -7.1316, -7.0308, -5.7127, -7.2527, -5.8461, -7.2487, -7.0362, -7.0304, -6.8636, -5.9596, -7.0651, -5.7005, -4.7256, -7.5069, -7.2282, -7.0824, -5.4504, -5.0328, -5.0951, -5.5879, -5.4576, -5.6315, -5.9348, -6.215, -6.0657, -4.852, -5.9581, -5.9633, -3.5438, -5.8314, -5.6449, -5.8394, -6.0254, -5.2407, -4.8007, -4.936, -3.8498, -5.1439, -5.0332, -5.6311, -4.7552, -5.6782, -4.8735, -3.7283, -4.9703, -5.3928, -5.305, -5.4508, -3.7066, -4.9765, -5.4534, -4.9888, -5.4965, -4.7282, -4.6527, -4.8678, -4.9365, -5.1407, -5.2517, -5.1686, -5.2386, -6.8666, -7.0301, -7.4291, -7.1905, -7.5296, -7.5432, -7.611, -7.5902, -7.2617, -7.7281, -7.7769, -7.7017, -5.7924, -7.7131, -7.6105, -7.2472, -7.9106, -7.8577, -7.8427, -6.8292, -8.0605, -8.0835, -7.8818, -7.9207, -7.9375, -8.245, -8.0835, -7.4552, -8.1551, -7.5715, -5.5311, -6.571, -7.6466, -7.8063, -6.9684, -7.6401, -7.3333, -6.268, -6.2464, -7.2445, -6.7027, -6.1497, -5.0195, -3.3899, -7.0112, -7.3067, -3.9221, -5.0335, -5.6153, -4.1593, -5.4511, -5.5838, -5.3117, -6.2532, -6.6282, -5.1849, -5.4496, -6.0694, -4.8285, -4.4981, -3.8166, -5.5321, -4.394, -4.7411, -5.7852, -4.8723, -4.273, -5.331, -4.9738, -4.9821, -5.6667, -5.5234, -3.7733, -4.6996, -4.349, -4.5608, -4.4565, -4.8283, -4.3884, -4.6043, -4.8626, -4.312, -5.188, -5.1249, -5.0062, -5.2801, -5.1242, -5.1354]}, "token.table": {"Topic": [2, 3, 1, 2, 3, 2, 1, 2, 3, 1, 2, 3, 2, 3, 2, 3, 2, 3, 1, 2, 3, 2, 3, 1, 3, 1, 3, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 1, 2, 3, 3, 1, 2, 3, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 2, 3, 2, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 1, 2, 3, 1, 2, 3, 3, 3, 1, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 3, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 1, 2, 3, 2, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 2, 3, 2, 1, 1, 2, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 1, 2, 3, 1, 2, 3, 2, 3, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 2, 3, 2, 3, 2, 3, 3, 1, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 2, 3, 1, 2, 3, 1, 2, 3, 3, 1, 2, 3, 1, 1, 3, 1, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 2, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 3, 1, 2, 3, 2, 3, 1, 2, 3, 2, 3, 2, 1, 2, 3, 2, 3, 1, 2, 3, 2, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 1, 3, 3, 2, 3, 1, 2, 3, 1, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 1, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 1, 2, 3, 1, 2, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 3, 1, 2, 3, 3, 1, 1, 2, 3, 1, 2, 3, 1, 3, 1, 1, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3], "Freq": [0.997396670685081, 0.001899803182257297, 0.050379740671660185, 0.9488184493162668, 0.0011995176350395281, 0.9990602436724276, 0.0025728687110393696, 0.9944137568167163, 0.0025728687110393696, 0.0018443721248167688, 0.9978053195258719, 0.0018443721248167688, 0.015786914466467662, 0.9787886969209951, 0.9955588674210668, 0.003909262568407331, 0.9977891295272517, 0.0024882521933347924, 0.0022918881354235016, 0.9923875626383762, 0.005729720338558755, 0.011785450311982602, 0.978192375894556, 0.9804527912616521, 0.9869781516868339, 0.9747767777870943, 0.024068562414496154, 0.9720661934003738, 0.1224737847887854, 0.8625281439380419, 0.015634951249632177, 0.199835795195032, 0.035369167291156106, 0.7648582426712508, 0.06391464932076893, 0.8004781271166023, 0.1356356680242272, 0.0011968943879400815, 0.9922254476023277, 0.00718136632764049, 0.009243335435007452, 0.22632166762078854, 0.7643958303677375, 0.9876639998999752, 0.030308188553312788, 0.012123275421325115, 0.9577387582846841, 0.9967027935574969, 0.7343817570424037, 0.07660032432402206, 0.18918371914900822, 0.9742911881832098, 0.9378346610771291, 0.006396144321071639, 0.055966262809376846, 0.972838005359647, 0.0019996670202664896, 0.0253291155900422, 0.1137114691374996, 0.20603167180358842, 0.6811429586949234, 0.9974302915489015, 0.004865513617311715, 0.00048512705799905116, 0.994510468898055, 0.004851270579990512, 0.993444026127443, 0.004893812936588388, 0.9926594666093004, 0.0006993722387902652, 0.9910104623658058, 0.008392466865483183, 0.0038889341891364627, 0.9527888763384335, 0.043556062918328385, 0.9970699460200834, 0.005035706798081229, 0.8215490494928116, 0.05475389153643317, 0.12370769340539187, 0.0248002841490698, 0.008266761383023267, 0.9672110818137222, 0.03092027760819609, 0.9337923837675219, 0.03485558566742105, 0.1037433711913667, 0.025935842797841675, 0.8714443180074802, 0.9774285742279282, 0.9840320046191902, 0.01014465984143495, 0.01014465984143495, 0.8884447425119066, 0.023242504709271593, 0.08832151789523204, 0.9859060227026594, 0.9915426420810425, 0.986424861439226, 0.01327028961577434, 0.9636326948671684, 0.026522000776160598, 0.008840666925386867, 0.4634188989195785, 0.0461203510876069, 0.49060775218083147, 0.987390569710958, 0.008093365325499655, 0.008093365325499655, 0.03576625797058249, 0.16094816086762123, 0.8027537900064071, 0.993313401799633, 0.005120172174224912, 0.9903199331339436, 0.9934201015010916, 0.9873287538575338, 0.010621290463019024, 0.8892380404316482, 0.10031218770629077, 0.8089176127926154, 0.13337112706787338, 0.0574933179340206, 0.08772879801828516, 0.8545434769929259, 0.05767356166016895, 0.9904436023168205, 0.011676428168557245, 0.011676428168557245, 0.9808199661588087, 0.9962683165395999, 0.26750706882292685, 0.21624564983753505, 0.5164911038948298, 0.9964785699392544, 0.0041176800410712994, 0.0014558961882246064, 0.9798181346751601, 0.018926650446919883, 0.9871519446083599, 0.0038864249787730703, 0.0038864249787730703, 0.9702921710306064, 0.024986064490058534, 0.005205430102095528, 0.880785877748997, 0.10432999007505203, 0.015248229318661452, 0.008079152189855849, 0.9937357193522695, 0.7711167886473064, 0.16571757324764833, 0.06305079386189986, 0.9968454525842351, 0.9826139973189496, 0.12574144761134723, 0.8255824188882169, 0.04885953392898063, 0.9830079185087364, 0.9889252101769378, 0.005958941533683408, 0.005181688290159485, 0.649102650218936, 0.14805494519735762, 0.20281135221828342, 0.03165879772992012, 0.017268435125410972, 0.9526420044185053, 0.7716271890880941, 0.08958519997152796, 0.13895659906694782, 0.9962753976970975, 0.01569885566594113, 0.14241104782675168, 0.8410101249611319, 0.6498534966268243, 0.07738951604487512, 0.2728916604082391, 0.010440697359405088, 0.9866459004637808, 0.9933338027589808, 0.00430014633228996, 0.9830459485797062, 0.015827215630084716, 0.1492985461286165, 0.01276055949817235, 0.8383687590299234, 0.9893397489944044, 0.00635822460793319, 0.003814934764759914, 0.8355697669947029, 0.10298883174585872, 0.0614879413253577, 0.9953931601248032, 0.005924959286457161, 0.15356319665952275, 0.2222236643967132, 0.6245887710286357, 0.3367906075051272, 0.2689015098210982, 0.3940601815290846, 0.5698032448585536, 0.24166905684114942, 0.1884900467783048, 0.004010173521026228, 0.9016206799773968, 0.09423907774411634, 0.005462400812684896, 0.9941569479086512, 0.7837361286332796, 0.04280040460601243, 0.17349714185447598, 0.007534966142683753, 0.9946155308342555, 0.9980930008700639, 0.003710382902862691, 0.9951154237777604, 0.9785325731451742, 0.01460496377828618, 0.3972754695989231, 0.05028803412644596, 0.5527112114443016, 0.5030764932537487, 0.1172331380133276, 0.3797882720718705, 0.994548681317037, 0.002028186039022508, 0.003503230431038877, 0.05522911529218538, 0.21704073377981625, 0.7276678172707232, 0.9943996477758736, 0.9968360029859151, 0.0031073441489585883, 0.9825957981434519, 0.00406031321546881, 0.00812062643093762, 0.0017983828109375797, 0.8524334523844128, 0.14476981628047517, 0.9880006858206541, 0.18337590885686236, 0.2175380160743078, 0.5988185460529231, 0.9918944262657348, 0.9766989581129477, 0.01655421962903301, 0.9801677573443442, 0.8969954916036704, 0.04717761755147332, 0.05586823131095525, 0.9684676474129712, 0.01862437783486483, 0.01862437783486483, 0.1604537029365085, 0.19328428768720624, 0.6464388377672591, 0.9634699597040919, 0.010714379363689646, 0.025961765381247986, 0.0016201668108954304, 0.9915420882680033, 0.008100834054477151, 0.9928315151747279, 0.0073953930366832624, 0.9993129458618026, 0.2716906974035533, 0.35915692192083104, 0.36905494732809807, 0.6405058616002426, 0.019769733630350148, 0.3397713542572043, 0.008394127128664884, 0.8310185857378235, 0.16032782815749927, 0.27483911518050497, 0.2610496094015523, 0.4640881944916485, 0.015360693600147203, 0.09754040436093474, 0.8870800554085009, 0.8609215123155345, 0.08488637880534121, 0.054018604694308046, 0.9932560088612135, 0.004868902004221635, 0.370487010506611, 0.18510369883424638, 0.4445844126079332, 0.9868361954682903, 0.8986859674473511, 0.01188812933316181, 0.0897270713955308, 0.01093434877553678, 0.9840913897983102, 0.14656594096547904, 0.2523160502696854, 0.601415095311934, 0.9935587635064035, 0.9874330750319996, 0.9991658734615808, 0.0002925927636783693, 0.9974487313795609, 0.0023407421094269543, 0.9961664397365808, 0.004168060417307869, 0.08944470795032419, 0.3510380712021419, 0.5594831297298539, 0.9971479534630175, 0.18597183084193422, 0.22720143484934416, 0.5868639378927075, 0.5695448139929862, 0.323782325763136, 0.10649707823293508, 0.11848177933485136, 0.7606530233297457, 0.1208514149215484, 0.2716612548548559, 0.6135283439590773, 0.11480199311216992, 0.9969071586366102, 0.9847284411899874, 0.013129712549199831, 0.9931216775673386, 0.9960983324500821, 0.004466808665695435, 0.36655178837848473, 0.10604211542536253, 0.5274669260161953, 0.983679260559819, 0.750116025616716, 0.129339026221735, 0.12053189408601372, 0.9952942652261285, 0.005001478719729289, 0.06877578897654298, 0.816077818191463, 0.11539561908815935, 0.9121178132227826, 0.02681427426259484, 0.060980849532675366, 0.014081974981566296, 0.009857382487096406, 0.9744726687243876, 0.8016677054656969, 0.1362518234585967, 0.06201494954760049, 0.9734532882616108, 0.02611703944116517, 0.009465638756515654, 0.12981447437507185, 0.8600208927348509, 0.8328280120103033, 0.066264796615648, 0.1009032130283731, 0.02473076678457376, 0.1469298497201147, 0.828480687283221, 0.9851707544960002, 0.8871924341669851, 0.07213287576304488, 0.04057474261671274, 0.16583616350478456, 0.03525543950224365, 0.7988069004142975, 0.013819296570512177, 0.9811700565063647, 0.6375511938743795, 0.12850953531699874, 0.23383539085674734, 0.9910420642588085, 0.9292421066699849, 0.050963533102353846, 0.019795752527360586, 0.007946707049467917, 0.9853916741340216, 0.04453664560582846, 0.011134161401457114, 0.9436201787734905, 0.04005106052161378, 0.004450117835734864, 0.9567753346829958, 0.014937253919860147, 0.9858587587107698, 0.0021666540659343956, 0.9787859742858631, 0.01895822307692596, 0.27515973394320653, 0.46932174338763816, 0.2553947389698213, 0.9938034636035487, 0.00593118778012728, 0.015529028570413807, 0.9783287999360698, 0.013049101035059062, 0.9830322779744493, 0.004349700345019687, 0.3983635762210325, 0.189753064412977, 0.41191736653624517, 0.0023959654195042, 0.9799498565772179, 0.017969740646281502, 0.002002461957066186, 0.9942223616833614, 0.003003692935599279, 0.2735347312497541, 0.5794230328623824, 0.14706168346760973, 0.9803044004420817, 0.013615338895028911, 0.006620780829824702, 0.9898067340587929, 0.003310390414912351, 0.019953960716768037, 0.049884901791920094, 0.9303534184193099, 0.9800964842179697, 0.899027549531344, 0.010085244946665718, 0.08932645524189636, 0.017071685380151243, 0.008535842690075622, 0.973086066668621, 0.05098275943283977, 0.20806477498267043, 0.7399389679847287, 0.009739365491168613, 0.009739365491168613, 0.9836759146080298, 0.5918073466023696, 0.32771351849494873, 0.0806063079721072, 0.0236943705605141, 0.9714691929810781, 0.0018567446551874913, 0.009283723275937456, 0.9896449012149329, 0.9690660468488712, 0.021066653192366766, 0.8784472694439847, 0.10114901131564553, 0.020047551792290105, 0.015810999603977284, 0.28100458387068716, 0.703589482376989, 0.011428556492494404, 0.9942844148470131, 0.028818258704706494, 0.25936432834235845, 0.7122226794163177, 0.7825592249569195, 0.1509870071362722, 0.06660078510271657, 0.006833339293822961, 0.9283579526322336, 0.06491672329131812, 0.0916876518750476, 0.26864481999388945, 0.6399798100878322, 0.7960670783199034, 0.0569057583924247, 0.14709601697664498, 0.28514649946057713, 0.418834268667204, 0.29605978674275074, 0.9774015525369071, 0.013575021563012598, 0.013575021563012598, 0.0010041438502040416, 0.9900858363011851, 0.009037294651836374, 0.3025169332701307, 0.3440901332614451, 0.35324146659286654, 0.9861729585612707, 0.19169584225001024, 0.01018673557850296, 0.7982696426063228, 0.9943146487380348, 0.9774763395011276, 0.42483985364092636, 0.07622456476934827, 0.49882251944647027, 0.11429685417798849, 0.003809895139266283, 0.8800857771705114, 0.023349478942088275, 0.9728949559203449, 0.9733726386366527, 0.9772200528724011, 0.014806364437460622, 0.42314426998033844, 0.290664521902382, 0.28605079933250294, 0.0007045572832387793, 0.9418521762336001, 0.057491874312284384, 0.015948944911322663, 0.9444053808204634, 0.03987236227830666, 0.8912096691549662, 0.03275888510560196, 0.07643739857973791, 0.9890793989606329, 0.009973909905485374, 0.012061774677847878, 0.8276872968592164, 0.1601304569300494, 0.823154950326936, 0.03352667578839192, 0.1431138697832849, 0.046790081050848385, 0.6910201784824368, 0.26211110218299327, 0.019995913540491985, 0.003999182708098397, 0.9797997634841072], "Term": ["1", "1", "10", "10", "10", "15", "2", "2", "2", "20", "20", "20", "2nd", "2nd", "30", "30", "45", "45", "5", "5", "5", "activ", "activ", "alarmist", "allevi", "altern", "altern", "amic", "annual", "annual", "annual", "answer", "answer", "answer", "appoint", "appoint", "appoint", "arriv", "arriv", "arriv", "ask", "ask", "ask", "aspect", "assess", "assess", "assess", "atmospher", "attent", "attent", "attent", "banger", "bedsid", "bedsid", "bedsid", "best", "best", "best", "better", "better", "better", "bill", "bill", "blood", "blood", "blood", "bloodwork", "bloodwork", "breath", "call", "call", "call", "came", "came", "came", "card", "card", "care", "care", "care", "certain", "certain", "certain", "check", "check", "check", "citi", "citi", "citi", "clinician", "colleagu", "colleagu", "colleagu", "comfort", "comfort", "comfort", "common", "compass", "compassion", "compassion", "compet", "compet", "compet", "concern", "concern", "concern", "concis", "concis", "concis", "condit", "condit", "condit", "confirm", "confirm", "connect", "crazi", "creat", "day", "day", "day", "definit", "definit", "definit", "desk", "desk", "desk", "diagnostician", "dilig", "dilig", "dilig", "disorgan", "doctor", "doctor", "doctor", "draw", "draw", "earli", "earli", "earli", "earth", "earth", "earth", "eas", "eas", "eas", "easi", "easi", "easi", "educ", "educ", "effici", "effici", "effici", "ekg", "enthusiast", "exam", "exam", "exam", "exceed", "excel", "excel", "excel", "experi", "experi", "experi", "experienc", "experienc", "experienc", "extrem", "extrem", "extrem", "fabul", "fast", "fast", "fast", "feel", "feel", "feel", "figur", "figur", "fill", "fill", "form", "form", "forward", "forward", "forward", "friend", "friend", "friend", "friendli", "friendli", "friendli", "frustrat", "frustrat", "gave", "gave", "gave", "go", "go", "go", "good", "good", "good", "got", "got", "got", "grate", "grate", "great", "great", "great", "gyn", "gyn", "half", "half", "happier", "he", "he", "health", "health", "health", "help", "help", "help", "highli", "highli", "highli", "histori", "histori", "histori", "hold", "hour", "hour", "humor", "humor", "humor", "insur", "insur", "insur", "invit", "issu", "issu", "issu", "ive", "judgement", "judgement", "keeper", "kind", "kind", "kind", "kindli", "kindli", "kindli", "know", "know", "know", "knowledg", "knowledg", "knowledg", "lab", "lab", "lab", "late", "late", "later", "like", "like", "like", "listen", "listen", "listen", "littl", "littl", "littl", "look", "look", "look", "lot", "lot", "lot", "love", "love", "love", "lunch", "lunch", "make", "make", "make", "manhattan", "manner", "manner", "manner", "measur", "measur", "medic", "medic", "medic", "messag", "mile", "min", "minut", "minut", "minut", "morn", "morn", "need", "need", "need", "needl", "new", "new", "new", "nice", "nice", "nice", "nurs", "nurs", "nurs", "offic", "offic", "offic", "ok", "outstand", "outstand", "p", "paperwork", "paperwork", "patient", "patient", "patient", "perman", "person", "person", "person", "phone", "phone", "physic", "physic", "physic", "physician", "physician", "physician", "plan", "plan", "plan", "pleasant", "pleasant", "pleasant", "pleasur", "pleasur", "polit", "polit", "polit", "primari", "primari", "primari", "problem", "problem", "problem", "profess", "profession", "profession", "profession", "question", "question", "question", "reaction", "reaction", "realli", "realli", "realli", "recomend", "recommend", "recommend", "recommend", "relev", "relev", "rememb", "rememb", "rememb", "research", "research", "research", "reserv", "reserv", "result", "result", "result", "right", "right", "right", "room", "room", "root", "root", "run", "run", "run", "rush", "rush", "rush", "said", "said", "said", "schedul", "schedul", "schedul", "seen", "seen", "seen", "she", "she", "short", "short", "short", "situat", "situat", "situat", "slightli", "smart", "smart", "smart", "solv", "solv", "solv", "specialist", "specialist", "specialist", "spot", "spot", "spot", "staff", "staff", "staff", "stay", "stay", "straight", "straight", "straight", "strong", "strong", "super", "super", "super", "sure", "sure", "sure", "surgeri", "surgeri", "symptom", "symptom", "symptom", "talk", "talk", "talk", "test", "test", "test", "think", "think", "think", "thorough", "thorough", "thorough", "time", "time", "time", "tip", "tip", "tip", "told", "told", "told", "took", "took", "took", "tough", "treatment", "treatment", "treatment", "tremend", "trustworthi", "understand", "understand", "understand", "understood", "understood", "understood", "unlik", "unlik", "unrush", "upbeat", "upbeat", "visit", "visit", "visit", "wait", "wait", "wait", "walk", "walk", "walk", "warm", "warm", "warm", "week", "week", "went", "went", "went", "wonder", "wonder", "wonder", "work", "work", "work", "york", "york", "york"]}, "R": 30, "lambda.step": 0.01, "plot.opts": {"xlab": "PC1", "ylab": "PC2"}, "topic.order": [1, 2, 3]};
+
+function LDAvis_load_lib(url, callback){
+  var s = document.createElement('script');
+  s.src = url;
+  s.async = true;
+  s.onreadystatechange = s.onload = callback;
+  s.onerror = function(){console.warn("failed to load library " + url);};
+  document.getElementsByTagName("head")[0].appendChild(s);
+}
+
+if(typeof(LDAvis) !== "undefined"){
+   // already loaded: just create the visualization
+   !function(LDAvis){
+       new LDAvis("#" + "ldavis_el174234566665880109246429", ldavis_el174234566665880109246429_data);
+   }(LDAvis);
+}else if(typeof define === "function" && define.amd){
+   // require.js is available: use it to load d3/LDAvis
+   require.config({paths: {d3: "https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min"}});
+   require(["d3"], function(d3){
+      window.d3 = d3;
+      LDAvis_load_lib("https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.js", function(){
+        new LDAvis("#" + "ldavis_el174234566665880109246429", ldavis_el174234566665880109246429_data);
+      });
+    });
+}else{
+    // require.js not available: dynamically load d3 & LDAvis
+    LDAvis_load_lib("https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js", function(){
+         LDAvis_load_lib("https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.js", function(){
+                 new LDAvis("#" + "ldavis_el174234566665880109246429", ldavis_el174234566665880109246429_data);
+            })
+         });
+}
+</script>
+                    <u class="lead">Choosing Topics:</u>
+                    <p class="lead">
+                        LDA does not tell you the topic of each review. It tells you a distribution of topics that make up the review. See below for an illustration of this concept: <br>
+                    </p>
+
+                    <p class="text-center">
+                        <img src="../static/img/topic_breakdown.png" width="50%" height="50%">
+                    </p>
+
+                    <p class="lead">
+                        I decided that for each review, if the most dominant topic score was more than twice the score for the next most dominant topic, I would classify that review as a single topic. Using this metric, my LDA model was able to classify 70% of the reviews as single topic.
+                    </p>
+
+                    <h3>
+                        Validating the Model
+                    </h3>
+                    <p class="lead">
+                        Validating unsupervised algorithms can be challenging, because there is no ground truth to compare with your model’s results. There are a number of statistical measures that are commonly used to validate LDA models. The most common methods include the <a href="http://qpleple.com/perplexity-to-evaluate-topic-models/" data-href="http://qpleple.com/perplexity-to-evaluate-topic-models/" rel="noopener" target="_blank">perplexity</a> and <a href="http://qpleple.com/topic-coherence-to-evaluate-topic-models/" data-href="http://qpleple.com/topic-coherence-to-evaluate-topic-models/" rel="noopener" target="_blank">topic coherence</a>. These measure how well the model actually represents the data, but they do not directly address the question of whether the topics identified by the model are interpretable.
+                    </p>
+
+                    <p class="lead">
+                        I wanted to validate my model in a way that focused on topic interpretability. I chose 50 reviews from each topic (as classified by the LDA model), scrambled them so that I did not know which review came from which topic, and then hand labeled them. Here is a confusion matrix showing how well my topic labels matched with the LDA topic labels:
+                    </p>
+
+                    <p class="text-center">
+                        <img src="../static/img/confusion_matrix.png" width="50%" height="50%">
+                    </p>
+
+                    <p class="lead">
+                        The true positive rate for Office Administration/Wait Time was 87%. For the other two topics, Overall Experience, and Bedside Manner, the true positive was closer to 50%. This is because those two topics are not as distinct as the topic of office administration and wait time. The overall accuracy is 59%. 
+                    </p>
+
+                    <h3>
+                        Future Directions
+                    </h3>
+                    <p class="lead">
+                        In summary, my web app gives users the information they need in a concise format so they do not need to read through hundreds of reviews to make a decision about a doctor. In the future, I would like to improve the accuracy of the model by using guided LDA, a variation of LDA where you seed the topic clusters with words instead of starting from a random state. This could result in better separation of the topics.
+                    </p>
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- About Me -->
+    <section id="about_me" class="services bg-primary">
+
+        <div class="text-center">
+            <h1>About Me</h1>
+
+            <img src="../static/img/headshot.jpg" width="30%" height="30%">
+            
+            <br><br>
+
+            <p class="lead">
+                My name is Ayelet Berger. I'm an aspiring data scientist, and I love finding smart ways to approach interesting problems. I am currently a fellow at Insight Data Science, where I completed a project called Review Distiller, hosted <a href="http://ayeletberger.com/reviewdistiller" data-href="http://ayeletberger.com/reviewdistiller" class="purple-link" rel="noopener" target="_blank">here</a>. At Insight, I've gained experience in nlp, machine learning, and data science in general. Prior to Insight, I completed my PhD in Materials Science at Columbia University. I've also spent some time teaching math and physics at the high school and undergraduate level. 
+            </p>
+
+        </div>    
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Ayelet Berger</strong>
+                    </h4>
+                    
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:ayeletnberger@gmail.com">ayeletnberger@gmail.com</a>
+                        </li>
+                    </ul>
+
+                    <ul class="list-unstyled">
+                        <li> <a href="https://github.com/anotisberger">github.com/anotisberger</a>
+                        </li>
+                    </ul>
+
+                    <ul class="list-unstyled">
+                        <li> <a href="https://www.linkedin.com/in/ayelet-notis-berger">linkedin.com/in/ayelet-notis-berger</a>
+                        </li>
+                    </ul>
+
+                    <hr class="small">
+                    <p class="text-muted">Copyright &copy; Ayelet Berger 2018</p>
+                </div>
+            </div>
+        </div>
+        <a id="to-top" href="#top" class="btn btn-dark btn-lg"><i class="fa fa-chevron-up fa-fw fa-1x"></i></a>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="../static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../static/js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+    // Scrolls to the selected menu item on the page
+    $(function() {
+        $('a[href*=#]:not([href=#],[data-toggle],[data-target],[data-slide])').click(function() {
+            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                var target = $(this.hash);
+                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                if (target.length) {
+                    $('html,body').animate({
+                        scrollTop: target.offset().top
+                    }, 1000);
+                    return false;
+                }
+            }
+        });
+    });
+    //#to-top button appears after scrolling
+    var fixed = false;
+    $(document).scroll(function() {
+        if ($(this).scrollTop() > 250) {
+            if (!fixed) {
+                fixed = true;
+                // $('#to-top').css({position:'fixed', display:'block'});
+                $('#to-top').show("slow", function() {
+                    $('#to-top').css({
+                        position: 'fixed',
+                        display: 'block'
+                    });
+                });
+            }
+        } else {
+            if (fixed) {
+                fixed = false;
+                $('#to-top').hide("slow", function() {
+                    $('#to-top').css({
+                        display: 'none'
+                    });
+                });
+            }
+        }
+    });
+
+
+    var onMapMouseleaveHandler = function(event) {
+        var that = $(this);
+        that.on('click', onMapClickHandler);
+        that.off('mouseleave', onMapMouseleaveHandler);
+        that.find('iframe').css("pointer-events", "none");
+    }
+    var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+        }
+        // Enable map zooming with mouse scroll when the user clicks the map
+    $('.map').on('click', onMapClickHandler);
+    </script>
+
+</body>
+
+</html>
